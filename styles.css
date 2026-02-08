@@ -1,0 +1,65 @@
+#focus-flashlight {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 2147483647;
+  pointer-events: none;
+  
+  /* DEFAULT VALUES */
+  --radius: 250px;
+  --darkness: 0.6;
+  --x: 50%;
+  --y: 50%;
+
+  background: radial-gradient(
+    circle var(--radius) at var(--x) var(--y), 
+    transparent 0%, 
+    
+    /* NEW: A faint white ring at 15-20% makes the circle visible on black pages */
+    rgba(255, 255, 255, 0.08) 18%, 
+    
+    rgba(0, 0, 0, var(--darkness)) 40%
+  );
+  
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  mix-blend-mode: hard-light; /* Makes the "light" feel more real */
+}
+
+#focus-flashlight.active {
+  opacity: 1;
+}
+
+/* 1. When Focus Mode is ON, activate interaction on paragraphs */
+body.focus-mode-active p:hover, 
+body.focus-mode-active li:hover,
+body.focus-mode-active h1:hover,
+body.focus-mode-active h2:hover,
+body.focus-mode-active h3:hover {
+  
+  /* The Animation */
+  transform: scale(1.02); 
+  transition: all 0.1s ease-out;
+  
+  /* The Pop-Out Effect */
+  position: relative; 
+  z-index: 2147483648; 
+  
+  /* FORCE WHITE CARD (Crucial for Dark Mode) */
+  background-color: #ffffff !important; 
+  color: #000000 !important;
+  
+  /* NEW: Dual Shadow 
+     - 1st shadow: Black (for depth on Light Mode)
+     - 2nd shadow: White Glow (for visibility on Dark Mode) 
+  */
+  box-shadow: 
+    0 10px 25px rgba(0,0,0,0.5),      /* Depth */
+    0 0 20px rgba(255, 255, 255, 0.4); /* Glow */
+    
+  border-radius: 6px;
+  padding: 5px; /* Add padding so text doesn't touch the edges */
+  cursor: text;
+}

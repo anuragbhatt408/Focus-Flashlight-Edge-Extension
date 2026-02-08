@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "name": "Focus Flashlight",
+  "version": "2.0",
+  "description": "A flashlight effect with adjustable size and darkness.",
+  "permissions": ["activeTab"],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "css": ["styles.css"],
+      "js": ["content.js"]
+    }
+  ]
+}
